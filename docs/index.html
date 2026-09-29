@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Derin Mavi</title>
+<meta name="description" content="Derin Mavi — derinliklerde geçen, sakin ve atmosferik bir keşif oyunu.">
+<meta name="theme-color" content="#020814">
+<style>
+  :root{
+    --bg:#020814;
+    --bg-2:#04122b;
+    --surface:rgba(10,30,60,.5);
+    --border:rgba(94,182,255,.22);
+    --text:#e6f2ff;
+    --muted:#9fc0e0;
+    --accent:#4fc3f7;
+    --glow:rgba(79,195,247,.4);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* Işık huzmesi / derinlik katmanları */
+  .backdrop{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:
+      radial-gradient(760px 520px at 50% -8%, rgba(79,195,247,.28) 0%, transparent 70%),
+      radial-gradient(1100px 700px at 50% 0%, #0b4278 0%, transparent 62%),
+      linear-gradient(180deg, #072a52 0%, var(--bg-2) 45%, var(--bg) 100%);
+  }
+  .beam{
+    position:fixed;
+    top:-30vh;
+    left:50%;
+    width:70vw;
+    max-width:620px;
+    height:130vh;
+    z-index:-1;
+    transform:translateX(-50%) rotate(8deg);
+    background:linear-gradient(180deg, rgba(120,210,255,.20) 0%, rgba(120,210,255,.05) 45%, transparent 80%);
+    filter:blur(42px);
+    animation:sway 14s ease-in-out infinite alternate;
+    pointer-events:none;
+  }
+  @keyframes sway{
+    from{transform:translateX(-50%) rotate(8deg) scaleX(1)}
+    to{transform:translateX(-42%) rotate(2deg) scaleX(1.12)}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .beam{animation:none}
+  }
+
+  main{
+    flex:1;
+    width:100%;
+    max-width:720px;
+    margin:0 auto;
+    padding:72px 20px 48px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+
+  .mark{
+    width:64px;
+    height:64px;
+    margin:0 auto 22px;
+    border-radius:50%;
+    background:radial-gradient(circle at 50% 40%, #bfe9ff 0%, var(--accent) 45%, rgba(79,195,247,0) 72%);
+    box-shadow:0 0 60px var(--glow);
+  }
+
+  h1{
+    margin:0 0 14px;
+    font-size:clamp(2.4rem, 12vw, 4rem);
+    font-weight:700;
+    letter-spacing:.06em;
+    color:#fff;
+    text-shadow:0 0 12px rgba(255,255,255,.35), 0 0 46px var(--glow), 0 0 90px rgba(79,195,247,.25);
+  }
+  .tagline{
+    margin:0 0 30px;
+    color:var(--accent);
+    font-size:clamp(.95rem, 3.6vw, 1.1rem);
+    letter-spacing:.14em;
+    text-transform:uppercase;
+  }
+
+  .about{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:24px 22px;
+    margin-bottom:34px;
+    box-shadow:0 0 50px rgba(6,40,80,.5);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    text-align:left;
+  }
+  .about p{margin:0 0 14px}
+  .about p:last-child{margin-bottom:0}
+  .about .en{color:var(--muted); font-size:.95rem}
+
+  .actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    justify-content:center;
+  }
+  .btn{
+    display:inline-block;
+    padding:13px 26px;
+    border-radius:999px;
+    border:1px solid var(--accent);
+    background:rgba(79,195,247,.12);
+    color:#fff;
+    text-decoration:none;
+    font-size:1rem;
+    box-shadow:0 0 26px rgba(79,195,247,.18);
+    transition:box-shadow .25s ease, background .25s ease, transform .15s ease;
+  }
+  .btn:hover, .btn:focus{
+    background:rgba(79,195,247,.22);
+    box-shadow:0 0 42px var(--glow);
+    transform:translateY(-1px);
+  }
+  .btn.ghost{
+    border-color:var(--border);
+    background:transparent;
+    color:var(--text);
+    box-shadow:none;
+  }
+  .btn.ghost:hover, .btn.ghost:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 30px var(--glow);
+  }
+
+  footer{
+    padding:26px 20px 34px;
+    text-align:center;
+    color:var(--muted);
+    font-size:.88rem;
+  }
+  footer a{color:var(--accent); text-decoration:none; word-break:break-word}
+  footer a:hover, footer a:focus{text-decoration:underline}
+  footer p{margin:0 0 6px}
+
+  @media (max-width:520px){
+    main{padding:56px 16px 36px}
+    .about{padding:20px 16px}
+    .btn{width:100%}
+  }
+</style>
+</head>
+<body>
+  <div class="backdrop"></div>
+  <div class="beam"></div>
+
+  <main>
+    <div class="mark" aria-hidden="true"></div>
+    <h1>Derin Mavi</h1>
+    <p class="tagline">Derinliklere dal &middot; Dive into the deep</p>
+
+    <section class="about">
+      <p>Derin Mavi, okyanusun karanlık derinliklerinde geçen sakin ve atmosferik bir keşif oyunudur. İndirdikten sonra tamamen çevrimdışı oynanır; reklam yoktur, veri toplamaz.</p>
+      <p class="en" lang="en">Derin Mavi is a calm, atmospheric exploration game set in the dark depths of the ocean. It plays fully offline — no ads, no data collection.</p>
+    </section>
+
+    <div class="actions">
+      <a class="btn" href="./privacy.html">Gizlilik Politikası</a>
+      <a class="btn ghost" href="./privacy.html" lang="en">Privacy Policy</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Geliştirici / Developer: <strong>SONER ACAR</strong></p>
+    <p>İletişim / Contact: <a href="mailto:soneracar82@gmail.com">soneracar82@gmail.com</a></p>
+    <p>&copy; 2026 SONER ACAR</p>
+  </footer>
+</body>
+</html>
